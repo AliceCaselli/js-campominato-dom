@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav{
+    display: flex;
+    justify-content: space-around;
+    padding: 50px;
+
+}
+
+.input-group.__input{
+    width: 300px;
+}
+
+.btn.__btn{
+    background-color: white;
+    border: solid 1px gray;
+}
+
+.__container{
+    background-color: aqua;
+    padding: 100px 0;
+}
+
+#__grid-container{
+    display: flex;
+    flex-flow: row wrap;
+    width: calc(50px * 10);
+    margin: 0 auto;
+
+}
+
+#__grid-container > div{
+    height: 50px;
+    width: 50px;
+    border: 1px solid black;
+}
+
+.blue{
+    background-color: rgb(68, 68, 233);
+}
+
+.red-bomb{
+    background-color: red;
+}
