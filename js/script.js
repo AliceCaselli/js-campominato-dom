@@ -26,10 +26,24 @@ const gridEl = document.getElementById("__grid-container");
 
 const buttonEl = document.getElementById("button");
 
+let outputEl = document.getElementById("output");
+
+//variabile per il punteggio
+let contatore = 0;
+
 
 let maxNumber = 100;
 
 buttonEl.addEventListener('click', function(){
+    //pulizia dei campi per ricominciare la partita da zero
+    gridEl.innerHTML = "";
+
+    contatore = 0;
+
+    outputEl.innerHTML = "";
+
+    gridEl.classList.remove("game-over");
+
 
     let bombList = createBombs(16, maxNumber);
 
@@ -47,14 +61,27 @@ buttonEl.addEventListener('click', function(){
             if(bombList.includes(i)){
 
                 newSquareEl.classList.add("red-bomb");
+                gridEl.classList.add("game-over");
 
+                outputEl.innerHTML = `Punti totali: ${contatore} <br> Hai Perso!`;
+
+            } else {
+
+                if(!newSquareEl.classList.contains("blue")){
+                    
+                    newSquareEl.classList.add("blue");
+                    contatore++;
+                    outputEl.innerHTML = "Punti: " + contatore;
+                }
+
+                if(contatore == maxNumber - bombList.length){
+
+                    gridEl.classList.add("game-over");
+
+                    outputEl.innerHTML = `Punti totali: ${contatore} <br> Hai Vinto!`;
+                }
                 
-
-            } else{
-
-                newSquareEl.classList.add("blue");
             }
-
 
 
             console.log(i);
