@@ -38,6 +38,12 @@ nav{
     border: 1px solid black;
 }
 
+#output{
+    text-align: center;
+    padding-top: 80px;
+    font-size: 2em;
+}
+
 .blue{
     background-color: rgb(68, 68, 233);
 }

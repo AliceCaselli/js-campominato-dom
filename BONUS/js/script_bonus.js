@@ -21,15 +21,32 @@ const buttonEl = document.getElementById("button");
 
 const inputSelect = document.getElementById("inputGroupSelect04");
 
+let outputEl = document.getElementById("output");
+
+//variabile per il punteggio
+let contatore = 0;
+
 let difficultyGrid;
 
+let bombList;
 
+let bombs;
 
 buttonEl.addEventListener('click', function(){
+    //pulizia dei campi per ricominciare la partita da zero
 
     gridEl.innerHTML = "";
 
+    contatore = 0;
+
+    outputEl.innerHTML = "";
+
+    gridEl.classList.remove("game-over");
+
     difficultyGrid = gridOption(inputSelect);
+
+    bombList = createBombs(16, difficultyGrid);
+
     
     for( let i = 1; i <= difficultyGrid; i++){
         
@@ -44,9 +61,32 @@ buttonEl.addEventListener('click', function(){
 
         newSquareEl.addEventListener('click', function(){
             
-            newSquareEl.classList.add("blue");
+            if(bombList.includes(i)){
 
-            console.log(i);
+                showBombs();
+
+                gridEl.classList.add("game-over");
+
+                outputEl.innerHTML = `Punti totali: ${contatore} <br> Hai Perso!`;
+
+            } else {
+
+                if(!newSquareEl.classList.contains("blue")){
+                    
+                    newSquareEl.classList.add("blue");
+                    contatore++;
+                    outputEl.innerHTML = "Punti: " + contatore;
+                }
+
+                if(contatore == difficultyGrid - bombList.length){
+
+                    gridEl.classList.add("game-over");
+
+                    showBombs();
+
+                    outputEl.innerHTML = `Punti totali: ${contatore} <br> Hai Vinto!`;
+                }
+            }
         })
     }
 
@@ -56,6 +96,8 @@ buttonEl.addEventListener('click', function(){
 
 
 
+
+//funzione per il numero di caselle
 
 function gridOption(input){
 
@@ -72,4 +114,51 @@ function gridOption(input){
         return 49;
     }
 
+}
+
+
+//funzione per le bombe
+
+function createBombs (quantity, difficultyGrid){
+
+    let bombs = [];
+
+    while(bombs.length < quantity) {
+
+        let randomBomb = randomNumberBetween(1, difficultyGrid);
+        //controllo doppioni
+        if(!bombs.includes(randomBomb)){
+            
+            bombs.push(randomBomb);
+        }
+        console.log(bombs);
+    }
+    
+    return bombs;
+}
+
+
+// funzione numeri random
+function randomNumberBetween(min, max) {
+
+    let random = Math.floor(Math.random () * (max - min) + min);
+
+    return random;
+}
+
+
+//funzione per mostrare le bombe
+
+function showBombs(){
+
+    let cells = document.querySelectorAll("#__grid-container > div");
+
+    for(let i = 0; i < difficultyGrid; i++){
+
+        if(bombList.includes(Number(cells[i].innerText))){
+            
+            cells[i].classList.add("red-bomb");
+        }
+    }
+        
 }
