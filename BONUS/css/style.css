@@ -42,3 +42,10 @@ nav{
     background-color: rgb(68, 68, 233);
 }
 
+.red-bomb{
+    background-color: red;
+}
+
+.game-over{
+    pointer-events: none;
+}
